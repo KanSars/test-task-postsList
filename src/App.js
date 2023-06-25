@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TabMenu from './components/Tabs/TabMenu';
 import { getPosts, getUsers } from './utils/api';
 import PostList from './components/Posts/PostList';
@@ -51,10 +51,3 @@ const App = () => {
 };
 
 export default App;
-
-/*
-{activeTab === 'posts' && <PostList posts={posts}/>}
-{activeTab === 'posts' && <PostList />}
-      {activeTab === 'photos' && <AlbumList />}
-      {activeTab === 'tasks' && <TaskList />}
-*/

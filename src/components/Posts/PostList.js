@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Post from './Post';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [activeComments, setActiveComments] = useState([]);
 
   useEffect(() => {
     const storedPerPage = localStorage.getItem('perPage');
@@ -15,8 +19,10 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
 
   useEffect(() => {
     setTotalPages(Math.ceil(posts.length / perPage));
-    setLoading(false);
-  }, [posts, perPage]);
+    if (posts && users) {
+      setLoading(false);
+    }
+  }, [posts, users, perPage]);
 
   const handleDelete = (postId) => {
     onDelete(postId);
@@ -26,8 +32,13 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
     onFavorite(postId);
   };
 
-  const handleComment = (postId) => {
-    onComment(postId);
+  const handleComment = async (postId) => {
+    const isActive = activeComments.includes(postId);
+    if (isActive) {
+      setActiveComments(activeComments.filter((id) => id !== postId));
+    } else {
+      setActiveComments([...activeComments, postId]);
+    }
   };
 
   const handlePerPageChange = (event) => {
@@ -48,8 +59,10 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
   const paginatedPosts = posts.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   const getUserName = (users, id) => {
-    let user = users.find(item => item.id == id);
-    return user.name;
+    if (users.length) {
+      let user = users.find(item => item.id === id);
+      return user.name; 
+    }
   }
 
   return (
@@ -75,7 +88,7 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
         <p>Загрузка...</p>
       ) : (
         <>
-        <div className="pagination">
+          <div className="pagination">
             <button
               className="btn btn-primary"
               onClick={handlePrevPage}
@@ -94,26 +107,22 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
               Следующая страница
             </button>
           </div>
-          
-          {paginatedPosts.map((post) => (
-            <div key={post.id} className="post card mb-4">
-              <div className="card-body">
-                <h3 className="card-title">{post.title}</h3>
-                <p className="card-text">Добавил: {getUserName(users, post.id)}</p>
-                <p className="card-text">{post.body}</p>
-                <button className="btn btn-primary" onClick={() => handleComment(post.id)}>
-                  Комментарии
-                </button>
-                <button className="btn btn-success" onClick={() => handleFavorite(post.id)}>
-                  В избранное
-                </button>
-                <button className="btn btn-danger" onClick={() => handleDelete(post.id)}>
-                  Удалить
-                </button>
+
+          {paginatedPosts.map((post) => {
+            const userName = getUserName(users, post.userId);
+            return (
+              <div key={post.id} className="post card mb-4">
+                <Post
+                  post={post}
+                  userName={userName}
+                  onDelete={handleDelete}
+                  onFavorite={handleFavorite}
+                  onComment={handleComment}
+                />
               </div>
-            </div>
-          ))}
-          
+            )
+          })}
+
         </>
       )}
     </div>
