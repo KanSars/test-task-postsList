@@ -1,18 +1,22 @@
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
+const POSTS_PATH = 'posts';
+const USERS_PATH = 'users';
+
+
+export const get = async (url) => {
+  const response = await fetch(`${BASE_URL}/${url}`);
+  const posts = await response.json();
+  return posts;
+};
 
 // Получить список постов
 export const getPosts = async () => {
-  const response = await fetch(`${BASE_URL}/posts`);
-  const posts = await response.json();
-  console.log(posts[0]);
-  return posts;
+  return get(POSTS_PATH);
 };
 
 // Получить список пользователей
 export const getUsers = async () => {
-  const response = await fetch(`${BASE_URL}/users`);
-  const users = await response.json();
-  return users;
+  return get(USERS_PATH);
 };
 
 // Получить комментарии для конкретного поста

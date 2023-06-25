@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const PostList = ({ posts, onDelete, onFavorite, onComment }) => {
+const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -46,6 +46,11 @@ const PostList = ({ posts, onDelete, onFavorite, onComment }) => {
   };
 
   const paginatedPosts = posts.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+  const getUserName = (users, id) => {
+    let user = users.find(item => item.id == id);
+    return user.name;
+  }
 
   return (
     <div className="container">
@@ -94,7 +99,7 @@ const PostList = ({ posts, onDelete, onFavorite, onComment }) => {
             <div key={post.id} className="post card mb-4">
               <div className="card-body">
                 <h3 className="card-title">{post.title}</h3>
-                <p className="card-text">Добавил: {post.author}</p>
+                <p className="card-text">Добавил: {getUserName(users, post.id)}</p>
                 <p className="card-text">{post.body}</p>
                 <button className="btn btn-primary" onClick={() => handleComment(post.id)}>
                   Комментарии
