@@ -9,19 +9,10 @@ const App = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('selectedTab') || 'posts');
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [postIdToDelete, setPostIdToDelete] = useState(null);
 
-  const handleDelete = (postId) => {
-    setPostIdToDelete(postId);
-  };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = (postIdToDelete) => {
     setPosts(posts.filter((post) => post.id !== postIdToDelete));
-    setPostIdToDelete(null);
-  };
-
-  const handleCancelDelete = () => {
-    setPostIdToDelete(null);
   };
 
   const handleTabChange = (tab) => {
@@ -56,7 +47,7 @@ const App = () => {
     <div className="container">
       <h1 className='mt-5'>My App</h1>
       <TabMenu activeTab={activeTab} onTabChange={handleTabChange} />
-      {activeTab === 'posts' && <PostList posts={posts} users={users} />}
+      {activeTab === 'posts' && <PostList posts={posts} users={users} onDelete={e => handleConfirmDelete(e)} />}
     </div>
   );
 };
