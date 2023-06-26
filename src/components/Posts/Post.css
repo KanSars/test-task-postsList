@@ -1,0 +1,12 @@
+.card-body {
+    padding: 15px;
+    outline: 1px solid #9679d4;
+    border-radius: 5px;
+}
+
+.card-body button {
+    margin: 0 2px;
+    padding: 1px 5px;
+    border: none;
+    opacity: 0.75;
+}

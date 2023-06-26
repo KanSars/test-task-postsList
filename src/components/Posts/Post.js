@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Comments from './Comments';
+import Modal from 'react-bootstrap/Modal';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from 'react-bootstrap/Modal';
+import './Post.css'
 
 
 const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
@@ -38,7 +39,7 @@ const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
 
   return (
     <div className="card-body">
-      <h3 className="card-title">{post.title}</h3>
+      <h5 className="card-title">{post.title}</h5>
       <p className="card-text">Добавил: {userName}</p>
       <p className="card-text">{post.body}</p>
       <button className="btn btn-primary" onClick={() => handleComment(post.id)}>

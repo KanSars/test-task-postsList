@@ -1,0 +1,59 @@
+.post-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.postList-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.pageSelection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination button {
+    padding: 1px 5px;
+    border: none;
+    box-shadow: inset 0px 0px 20px 10px #9679d4;
+}
+
+.form-label {
+    width: auto;
+
+    margin: 0px;
+    font-size: 14px;
+    
+}
+
+.form-select {
+    margin-left: 10px;
+    padding: 0px 5px 0px 10px;
+    width: auto;
+    font-size: 14px;
+    background: transparent;
+    box-shadow: inset 0px 0px 10px 10px #9679d4;
+    color: white;
+    background: #a48ed3;
+}
+
+.posts {
+    position: relative;
+    height: 10%;
+    padding: 2px;
+}
+

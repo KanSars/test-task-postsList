@@ -5,11 +5,31 @@ import PostList from './components/Posts/PostList';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import './App.css';
+
+//TODO норм загрузку сделать, возможно с эмитацией долгой загрузки чтобы продемонстрировать
+//TODO сделать презентациооное наполнение Фото и задачи
+//TODO вынести функции из компонентов
+//TODO раскидать компоненты по папкам с css
+//TODO удалить лишнее отсавшее от стандартного cra и возможно лишние компоненты
+//TODO фиксированный размер приложения
+//TODO добавить картинку в хедер
+//TODO добавить футер с описанием приложения
+//TODO option через функцию чтобы не было копипаста кода
+//TODO Количество постов на странице как Страница 1 из 10
+//TODO Header?
+//TODO @media
+//TODO удалить лишние стили
+//TODO В избранное
+//TODO Стили модального окна (ну типа по середине и задний фон немного размытый)
+
+
 const App = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('selectedTab') || 'posts');
+  const [favorite, setFavorite] = useState(localStorage.getItem('favorite') || null);
+  
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-
 
   const handleConfirmDelete = (postIdToDelete) => {
     setPosts(posts.filter((post) => post.id !== postIdToDelete));
@@ -19,6 +39,10 @@ const App = () => {
     setActiveTab(tab);
     localStorage.setItem('selectedTab', tab);
   };
+
+  const handleFavorite = (e) => {
+    console.log(e);
+  }
 
   const fetchPosts = async () => {
     try {
@@ -44,10 +68,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h1 className='mt-5'>My App</h1>
+    <div className="fetch-container">
+      <h1 className='app-title'>My App</h1>
       <TabMenu activeTab={activeTab} onTabChange={handleTabChange} />
-      {activeTab === 'posts' && <PostList posts={posts} users={users} onDelete={e => handleConfirmDelete(e)} />}
+      {activeTab === 'posts' && <PostList posts={posts} users={users} onDelete={e => handleConfirmDelete(e)} onFavorite={e => handleFavorite(e)}/>}
     </div>
   );
 };

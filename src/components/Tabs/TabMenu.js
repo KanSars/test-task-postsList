@@ -1,6 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from 'react';
 
-import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './TabMenu.css'
 
 const TabMenu = ({ activeTab, onTabChange }) => {
   const [selectedTab, setSelectedTab] = useState(activeTab);
@@ -22,28 +23,25 @@ const TabMenu = ({ activeTab, onTabChange }) => {
   }, [selectedTab]);
 
   return (
-    <ul className="nav nav-tabs">
+    <ul className="nav nav-tabs align">
       <li className={`nav-item ${activeTab === 'posts' ? 'active' : ''}`}>
         <button
           className={`nav-link ${activeTab === 'posts' ? 'active' : ''}`}
-          onClick={() => handleTabClick('posts')}
-        >
+          onClick={() => handleTabClick('posts')}>
           Посты
         </button>
       </li>
       <li className={`nav-item ${activeTab === 'photos' ? 'active' : ''}`}>
         <button
           className={`nav-link ${activeTab === 'photos' ? 'active' : ''}`}
-          onClick={() => handleTabClick('photos')}
-        >
+          onClick={() => handleTabClick('photos')}>
           Фото
         </button>
       </li>
       <li className={`nav-item ${activeTab === 'tasks' ? 'active' : ''}`}>
         <button
           className={`nav-link ${activeTab === 'tasks' ? 'active' : ''}`}
-          onClick={() => handleTabClick('tasks')}
-        >
+          onClick={() => handleTabClick('tasks')}>
           Задачи
         </button>
       </li>

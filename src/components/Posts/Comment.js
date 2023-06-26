@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Comment.css'
 
 const Comment = ({ comment }) => {
   return (

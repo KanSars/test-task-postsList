@@ -1,0 +1,15 @@
+.nav-tabs {
+    font-size: 24px;
+    
+}
+
+.active {
+    background-color: transparent !important;
+    font-size: 28px;
+    color: #0949a7 !important;
+}
+
+.align {
+    display: flex;
+    align-items: end;
+}
