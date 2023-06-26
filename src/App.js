@@ -9,7 +9,20 @@ const App = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('selectedTab') || 'posts');
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [postIdToDelete, setPostIdToDelete] = useState(null);
 
+  const handleDelete = (postId) => {
+    setPostIdToDelete(postId);
+  };
+
+  const handleConfirmDelete = () => {
+    setPosts(posts.filter((post) => post.id !== postIdToDelete));
+    setPostIdToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setPostIdToDelete(null);
+  };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -38,8 +51,6 @@ const App = () => {
     fetchPosts();
     fetchUsers();
   }, []);
-
-
 
   return (
     <div className="container">

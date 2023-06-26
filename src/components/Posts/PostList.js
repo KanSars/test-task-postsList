@@ -3,12 +3,11 @@ import Post from './Post';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
+const PostList = ({ posts, users, onDelete, onFavorite }) => {
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [activeComments, setActiveComments] = useState([]);
 
   useEffect(() => {
     const storedPerPage = localStorage.getItem('perPage');
@@ -30,15 +29,6 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
 
   const handleFavorite = (postId) => {
     onFavorite(postId);
-  };
-
-  const handleComment = async (postId) => {
-    const isActive = activeComments.includes(postId);
-    if (isActive) {
-      setActiveComments(activeComments.filter((id) => id !== postId));
-    } else {
-      setActiveComments([...activeComments, postId]);
-    }
   };
 
   const handlePerPageChange = (event) => {
@@ -117,7 +107,6 @@ const PostList = ({ posts, users, onDelete, onFavorite, onComment }) => {
                   userName={userName}
                   onDelete={handleDelete}
                   onFavorite={handleFavorite}
-                  onComment={handleComment}
                 />
               </div>
             )
