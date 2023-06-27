@@ -1,3 +1,8 @@
+.favorit {
+    outline: 1px solid #9679d4;
+    box-shadow: inset 0px 0px 20px 10px #9679d4;
+}
+
 .card-body {
     padding: 15px;
     outline: 1px solid #9679d4;
@@ -9,18 +14,4 @@
     padding: 1px 5px;
     border: none;
     opacity: 0.75;
-}
-
-.favorit {
-    outline: 1px solid #9679d4;
-    box-shadow: inset 0px 0px 20px 10px #9679d4;
-}
-
-.modal-content {
-    background: #f2f6f8;
-}
-
-.modal-content button {
-    border: 1px solid grey;
-    border-radius: 5px;
 }
