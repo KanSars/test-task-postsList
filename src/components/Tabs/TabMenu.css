@@ -11,5 +11,12 @@
 
 .align {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
+}
+
+
+@media (max-width: 992px) {
+    .align {
+        justify-content: center;
+    }
 }

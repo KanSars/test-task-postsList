@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Post from './Post';
+import Post from '../Post/Post';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostList.css'
@@ -14,7 +14,6 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
   useEffect(() => {
     const storedFavoritePosts = localStorage.getItem('favoritePosts');
     if (storedFavoritePosts?.length) {
-      //localStorage.clear(); //TODO for testing
       setFavoritePosts(JSON.parse(storedFavoritePosts));
     }
   }, []);
@@ -30,7 +29,6 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
     } else {
       // Добавление поста в избранные
       const updatedFavoritePostsId = [...favoritePosts, postId];
-      console.log('updatedFavoritePosts:', updatedFavoritePostsId);
       setFavoritePosts(updatedFavoritePostsId);
       localStorage.setItem('favoritePosts', JSON.stringify(updatedFavoritePostsId));
     }
@@ -83,7 +81,7 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
   const getPostListHeader = () => {
     return (
       <div className="postList-header">
-          <div className='pageSelection'>
+          <div className='page-selection'>
             <label htmlFor="perPageSelect" className="form-label">
               Количество постов на странице:
             </label>
@@ -105,7 +103,7 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
       <>
         {loading ?
           (null) :
-          <div className="pagination">
+          <div className="pagination-buttons">
             <button className="btn btn-primary" onClick={handlePrevPage} disabled={currentPage === 1} >
               Предыдущая страница
             </button>

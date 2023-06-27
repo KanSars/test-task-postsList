@@ -10,3 +10,8 @@
     border: none;
     opacity: 0.75;
 }
+
+.favorit {
+    outline: 1px solid #9679d4;
+    box-shadow: inset 0px 0px 20px 10px #9679d4;
+}

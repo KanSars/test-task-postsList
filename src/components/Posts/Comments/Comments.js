@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Comment from './Comment';
-import { getComments } from '../../utils/api';
+import { getComments } from '../../../utils/api';
+import Comment from '../Comment/Comment';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,21 +8,9 @@ const Comments = ({ id }) => {
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchComments(id);
-    }, [id])
-
-    useEffect(() => {
-        if (comments) {
-            setLoading(false);
-        }
-    }, [comments])
-
     const getCommentsList = (comments) => {
         return (
-            <>
-                {loading ? (<p>Загрузка...</p>) : (comments.map((comment) => <Comment key={comment.id} comment={comment} />))}
-            </>
+            <>{loading ? (<p>Загрузка...</p>) : (comments.map((comment) => <Comment key={comment.id} comment={comment} />))}</>
         )
     }
 
@@ -34,6 +22,16 @@ const Comments = ({ id }) => {
             console.error('Failed to fetch users:', error);
         }
     };
+
+    useEffect(() => {
+        fetchComments(id);
+    }, [id])
+
+    useEffect(() => {
+        if (comments) {
+            setLoading(false);
+        }
+    }, [comments])
 
     return (
         <div className="comment card mb-3">

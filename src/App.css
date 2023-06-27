@@ -4,9 +4,10 @@
   padding: 40px;
   overflow: scroll;
 }
-/*#fad4ff*/
 
-/*overflow: hidden;*/
+.fetch-container h1 {
+  text-align: center;
+}
 
 .app-title {
   font-size: 32px;
