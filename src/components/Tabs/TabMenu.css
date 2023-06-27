@@ -1,0 +1,22 @@
+.nav-tabs {
+    font-size: 24px;
+    
+}
+
+.active {
+    background-color: transparent !important;
+    font-size: 28px;
+    color: #0949a7 !important;
+}
+
+.align {
+    display: flex;
+    align-items: flex-end;
+}
+
+
+@media (max-width: 992px) {
+    .align {
+        justify-content: center;
+    }
+}

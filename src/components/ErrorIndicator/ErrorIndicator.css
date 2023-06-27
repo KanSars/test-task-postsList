@@ -1,0 +1,7 @@
+.error-indicator {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f13c3c;
+}

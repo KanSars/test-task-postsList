@@ -1,0 +1,7 @@
+.post-list {
+    position: relative;
+    height: 10%;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+}
