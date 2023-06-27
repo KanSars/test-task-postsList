@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Comments from './Comments';
 import Modal from 'react-bootstrap/Modal';
 
@@ -6,13 +6,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Post.css'
 
 
-const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
+const Post = ({ post, userName, onDelete, onFavorite, isPostInFavorites }) => {
   const [isActiveComments, setIsActiveComments] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isPostInFavorites);
+//  console.log('isPostInFavorites:', isPostInFavorites);
+
+
+  useEffect(() => {
+    //const isPostInFavorites = favoritePosts.some((favPost) => favPost.id === post.id);
+    //setIsFavorite(isPostInFavorites);
+  }, [post.id]);
+
+  useEffect(() => {
+    //localStorage.setItem(`post-${post.id}-isFavorite`, JSON.stringify(isFavorite));
+  }, [post.id, isFavorite]);
+
+  useEffect(() => {
+    //const savedIsFavorite = localStorage.getItem(`post-${post.id}-isFavorite`);
+    //setIsFavorite(savedIsFavorite ? JSON.parse(savedIsFavorite) : false);
+  }, [post.id]);
 
   const handleFavorite = (postId) => {
     onFavorite(postId);
   };
+
 
   const handleComment = async () => {
     if (isActiveComments) {
@@ -22,7 +40,7 @@ const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
     }
   };
 
-  const handleDelete = (postId) => {
+  const handleDelete = () => {
     setIsDeleteConfirmationOpen(true);
   };
 
@@ -43,8 +61,8 @@ const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
       <button className="btn btn-primary" onClick={() => handleComment(post.id)}>
         {isActiveComments ? 'Скрыть комментарии' : 'Комментарии'}
       </button>
-      <button className="btn btn-success" onClick={() => handleFavorite(post.id)}>
-        В избранное
+      <button className={`btn btn-success ${isPostInFavorites ? 'active' : ''}`} onClick={() => handleFavorite(post.id)}>
+        {isPostInFavorites ? 'В избранном' : 'В избранное'}
       </button>
       <button className="btn btn-danger" onClick={() => handleDelete(post.id)}>
         Удалить

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Post from './Post';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import './PostList.css'
 
 const PostList = ({ posts, users, onDelete, onFavorite }) => {
@@ -10,6 +9,32 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [favoritePosts, setFavoritePosts] = useState([]);
+
+  useEffect(() => {
+    const storedFavoritePosts = localStorage.getItem('favoritePosts');
+    if (storedFavoritePosts?.length) {
+      //localStorage.clear(); //TODO for testing
+      setFavoritePosts(JSON.parse(storedFavoritePosts));
+    }
+  }, []);
+
+  const handleFavorite = (postId) => {
+    const isPostInFavorites = favoritePosts.includes(postId);
+    if (isPostInFavorites) {
+      // Удаление поста из избранных, если он уже там
+      const updatedFavoritePostsId = favoritePosts.filter(id => id !== postId);
+      setFavoritePosts(updatedFavoritePostsId);
+      localStorage.setItem('favoritePosts', JSON.stringify(updatedFavoritePostsId));
+
+    } else {
+      // Добавление поста в избранные
+      const updatedFavoritePostsId = [...favoritePosts, postId];
+      console.log('updatedFavoritePosts:', updatedFavoritePostsId);
+      setFavoritePosts(updatedFavoritePostsId);
+      localStorage.setItem('favoritePosts', JSON.stringify(updatedFavoritePostsId));
+    }
+  };
 
   useEffect(() => {
     const storedPerPage = localStorage.getItem('perPage');
@@ -29,11 +54,7 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
     onDelete(postId);
   };
 
-  const handleFavorite = (postId) => {
-    console.log('postId:', postId);
-    onFavorite(postId);
-  };
-
+  // Pagination
   const handlePerPageChange = (event) => {
     const newPerPage = Number(event.target.value);
     setPerPage(newPerPage);
@@ -50,6 +71,7 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
   };
 
   const paginatedPosts = posts.slice((currentPage - 1) * perPage, currentPage * perPage);
+
 
   const getUserName = (users, id) => {
     if (users.length) {
@@ -108,9 +130,10 @@ const PostList = ({ posts, users, onDelete, onFavorite }) => {
           <div className="posts">
           {paginatedPosts.map((post) => {
               const userName = getUserName(users, post.userId);
+              const isPostInFavorites = favoritePosts.includes(post.id);
               return (
                 <div key={post.id} className="post mb-4">
-                  <Post post={post} userName={userName} onDelete={handleDelete} onFavorite={handleFavorite} />
+                  <Post post={post} userName={userName} onDelete={handleDelete} onFavorite={handleFavorite} isPostInFavorites={isPostInFavorites} />
                 </div>
               )
             })}
