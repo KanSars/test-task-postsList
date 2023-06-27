@@ -22,7 +22,6 @@ const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
     }
   };
 
-  //---------------
   const handleDelete = (postId) => {
     setIsDeleteConfirmationOpen(true);
   };
@@ -35,7 +34,6 @@ const Post = ({ post, userName, onDelete, onFavorite, onComment }) => {
   const cancelDelete = () => {
     setIsDeleteConfirmationOpen(false);
   };
-  //---------------
 
   return (
     <div className="card-body">
