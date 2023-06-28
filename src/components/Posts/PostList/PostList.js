@@ -13,7 +13,6 @@ const PostList = ({ paginatedPosts, users, handleDelete, handleFavorite, favorit
   }
 
   return (
-    //TODO чето со стилями надо делать div в dive не дело
     <div className="post-list">
       {paginatedPosts.map((post) => {
         const userName = getUserName(users, post.userId);

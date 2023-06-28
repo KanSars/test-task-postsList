@@ -66,8 +66,8 @@ const Posts = ({ posts, users, onDelete }) => {
   useEffect(() => {
     setTotalPages(Math.ceil(posts.length / perPage));
     if (posts && users) {
-      //TODO setTimeout(() => setComments(fetchedComments), 1000); //For testing long loading
       setLoading(false);
+      //setTimeout(() => setComments(fetchedComments), 1000); //For testing long loading
     }
   }, [posts, users, perPage]);
 
@@ -76,7 +76,6 @@ const Posts = ({ posts, users, onDelete }) => {
         <PostListHeader 
         loading={loading} 
         posts={posts} 
-
         totalPages={totalPages}
         currentPage={currentPage} 
         perPage={perPage}

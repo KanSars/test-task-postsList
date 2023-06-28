@@ -8,9 +8,6 @@ import ErrorIndicator from './components/ErrorIndicator/ErrorIndicator';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-//TODO хорошо бы удалять из избранного пост, который удаляется
-//TODO удалить лишние стили
-
 const App = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('selectedTab') || 'posts');
   const [posts, setPosts] = useState([]);
